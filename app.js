@@ -1,3 +1,10 @@
+const client = contentful.createClient({
+  // This is the space ID. A space is like a project folder in Contentful terms
+  space: 'qkzkm6tfh7zj',
+  // This is the access token for this space. Normally you get both ID and the token in the Contentful web app
+  accessToken: '18P0OCt25qN33Si80ULaIMlpO8XPSY29srS3wVGoIL8',
+})
+
 //variables
 
 const cartBtn = document.querySelector('.cart-btn')
@@ -27,9 +34,14 @@ let buttonsDOM = []
 class Products {
   async getProducts() {
     try {
+    const contentful = await client.getEntries({
+      content_type: 'orbansOnlineHouse'
+})
+    
+
       let result = await fetch('products.json')
       let data = await result.json()
-      let products = data.items
+      let products = contentful.items
       products = products.map((item) => {
         const { title, price } = item.fields
         const { id } = item.sys
@@ -158,20 +170,18 @@ class UI {
         Storage.saveCart(cart)
         this.setCartValues(cart)
         addAmount.nextElementSibling.innerText = tempItem.amount
-      }
-      else if (event.target.classList.contains('fa-chevron-down')){
-        let lowerAmount = event.target;
-        let id = lowerAmount.dataset.id;
+      } else if (event.target.classList.contains('fa-chevron-down')) {
+        let lowerAmount = event.target
+        let id = lowerAmount.dataset.id
         let tempItem = cart.find((item) => item.id === id)
-        tempItem.amount = tempItem.amount - 1;
-        if (tempItem.amount >0){
-Storage.saveCart(cart);
-this.setCartValues(cart);
-lowerAmount.previousElementSibling.innerText = tempItem.amount;
-        }
-        else {
-          cartContent.removeChild (lowerAmount.parentElement.parentElement);
-          this.removeItem(id);
+        tempItem.amount = tempItem.amount - 1
+        if (tempItem.amount > 0) {
+          Storage.saveCart(cart)
+          this.setCartValues(cart)
+          lowerAmount.previousElementSibling.innerText = tempItem.amount
+        } else {
+          cartContent.removeChild(lowerAmount.parentElement.parentElement)
+          this.removeItem(id)
         }
       }
     })
