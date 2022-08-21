@@ -37,21 +37,22 @@ class Products{
 class UI {
   displayProducts(products) {
    let result = '';
-   Products.forEach(product => {
+   products.forEach(product => {
     result += `
     <article class="product">
     <div class="img-container">
      <img src=${product.image} alt="product" class="product-img"/>
-     <button class="bag-btn" data-id="1">
+     <button class="bag-btn" data-id=${product.id}>
       <i class="fas fa-shopping-cart"></i>
       ADD TO BAG
      </button>
     </div>
-    <h3>queen bed</h3>
-     <h4>$150</h4>
+    <h3>${product.title}</h3>
+     <h4>$${product.price}</h4>
    </article>
     `;
    });
+  productsDOM.innerHTML = result; 
   }
 }
 
