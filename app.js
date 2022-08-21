@@ -34,14 +34,13 @@ let buttonsDOM = []
 class Products {
   async getProducts() {
     try {
-    const contentful = await client.getEntries({
-      content_type: 'orbansOnlineHouse'
-})
-    
+    /*  let contentful = await client.getEntries({
+        content_type: 'orbansOnlineHouse',
+      })*/
 
       let result = await fetch('products.json')
       let data = await result.json()
-      let products = contentful.items
+      let products = data.items
       products = products.map((item) => {
         const { title, price } = item.fields
         const { id } = item.sys
