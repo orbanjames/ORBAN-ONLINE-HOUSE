@@ -1,13 +1,21 @@
 //variables
 
 const cartBtn = document.querySelector(".cart-btn");
+
 const closeCartBtn = document.querySelector('.close-cart')
+
 const clearCrtBtn = document.querySelector('.clear-cart')
+
 const cartDOM = document.querySelector('.cart')
+
 const cartOverlay = document.querySelector('.cart-overlay')
+
 const cartItems = document.querySelector('.cart-items')
+
 const cartTotal = document.querySelector('.cart-total')
+
 const cartContent = document.querySelector('.cart-content')
+
 const productsDOM = document.querySelector('.products-center')
 
 
@@ -63,6 +71,7 @@ class UI {
    buttons.forEach(button =>{
    let id = button.dataset.id;
    let inCart = cart.find(item =>item.id === id);
+
    if(inCart){
     button.innerText = 'In Cart'
     button.disabled = true;
@@ -84,6 +93,7 @@ class UI {
     })
    }) 
   }
+
   setCartValues(cart){
    let tempTotal = 0;
    let itemsTotal = 0;
@@ -95,7 +105,20 @@ class UI {
    cartItems.innerText = itemsTotal;
   }
  addCartItem(item){
-
+const div = document.createElement('div');
+div.classList.add('cart-item');
+div.innerHTML = `<img src=${item.image} alt="product"/>
+    <div>
+    <h4>queen bed</h4>
+    <h5>$150</h5>
+    <span class="remove-item">remove</span>
+    </div>
+    <div>
+      <i class="fas fa-chevron-up"></i>
+      <p class="item-amount">1</p>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+`
  }
 }
 
